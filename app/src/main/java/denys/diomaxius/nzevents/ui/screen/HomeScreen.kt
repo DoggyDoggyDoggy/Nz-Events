@@ -39,6 +39,7 @@ fun HomeScreen(
         LazyColumn {
             items(events) {
                 Text(text = it.name)
+                Text(text = it.images.images[0].transforms.transforms.last().url)
             }
         }
     }
