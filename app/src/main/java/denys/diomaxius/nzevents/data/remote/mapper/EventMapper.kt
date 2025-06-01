@@ -1,7 +1,7 @@
-package denys.diomaxius.nzevents.data.mapper
+package denys.diomaxius.nzevents.data.remote.mapper
 
-import denys.diomaxius.nzevents.data.dto.EventDto
-import denys.diomaxius.nzevents.data.dto.EventsResponseDto
+import denys.diomaxius.nzevents.data.remote.dto.EventDto
+import denys.diomaxius.nzevents.data.remote.dto.EventsResponseDto
 import denys.diomaxius.nzevents.domain.model.Event
 import denys.diomaxius.nzevents.domain.model.Events
 

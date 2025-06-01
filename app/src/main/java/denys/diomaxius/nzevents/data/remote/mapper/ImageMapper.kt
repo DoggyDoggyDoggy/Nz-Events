@@ -1,9 +1,9 @@
-package denys.diomaxius.nzevents.data.mapper
+package denys.diomaxius.nzevents.data.remote.mapper
 
-import denys.diomaxius.nzevents.data.dto.ImageDto
-import denys.diomaxius.nzevents.data.dto.ImageTransformDto
-import denys.diomaxius.nzevents.data.dto.ImageWrapperDto
-import denys.diomaxius.nzevents.data.dto.TransformWrapperDto
+import denys.diomaxius.nzevents.data.remote.dto.ImageDto
+import denys.diomaxius.nzevents.data.remote.dto.ImageTransformDto
+import denys.diomaxius.nzevents.data.remote.dto.ImageWrapperDto
+import denys.diomaxius.nzevents.data.remote.dto.TransformWrapperDto
 import denys.diomaxius.nzevents.domain.model.Image
 import denys.diomaxius.nzevents.domain.model.ImageTransform
 import denys.diomaxius.nzevents.domain.model.ImageWrapper

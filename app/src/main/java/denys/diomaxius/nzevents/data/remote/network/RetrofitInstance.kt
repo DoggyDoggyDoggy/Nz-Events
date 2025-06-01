@@ -1,6 +1,7 @@
-package denys.diomaxius.nzevents.data.network
+package denys.diomaxius.nzevents.data.remote.network
 
-import denys.diomaxius.nzevents.data.Pass
+import denys.diomaxius.nzevents.data.remote.Pass
+import denys.diomaxius.nzevents.data.remote.api.EventsFindApi
 import okhttp3.Credentials
 import okhttp3.OkHttpClient
 import retrofit2.Retrofit

@@ -1,4 +1,4 @@
-package denys.diomaxius.nzevents.data.dto
+package denys.diomaxius.nzevents.data.remote.dto
 
 import com.google.gson.annotations.SerializedName
 

@@ -4,8 +4,8 @@ import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
-import denys.diomaxius.nzevents.data.network.EventsFindApi
-import denys.diomaxius.nzevents.data.network.RetrofitInstance
+import denys.diomaxius.nzevents.data.remote.api.EventsFindApi
+import denys.diomaxius.nzevents.data.remote.network.RetrofitInstance
 import denys.diomaxius.nzevents.data.repository.EventsRepositoryImpl
 import denys.diomaxius.nzevents.domain.repository.EventsRepository
 import javax.inject.Singleton
