@@ -1,6 +1,6 @@
 package denys.diomaxius.nzevents.data.network
 
-import denys.diomaxius.nzevents.data.model.EventsResponseDto
+import denys.diomaxius.nzevents.data.dto.EventsResponseDto
 import retrofit2.http.GET
 import retrofit2.http.Query
 

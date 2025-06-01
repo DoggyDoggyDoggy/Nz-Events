@@ -4,7 +4,7 @@ import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
-import denys.diomaxius.nzevents.data.model.EventDto
+import denys.diomaxius.nzevents.data.dto.EventDto
 import denys.diomaxius.nzevents.data.network.EventFindApi
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
