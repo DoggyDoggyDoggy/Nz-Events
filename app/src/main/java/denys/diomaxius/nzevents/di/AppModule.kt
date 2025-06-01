@@ -4,8 +4,10 @@ import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
-import denys.diomaxius.nzevents.data.network.EventFindApi
+import denys.diomaxius.nzevents.data.network.EventsFindApi
 import denys.diomaxius.nzevents.data.network.RetrofitInstance
+import denys.diomaxius.nzevents.data.repository.EventsRepositoryImpl
+import denys.diomaxius.nzevents.domain.repository.EventsRepository
 import javax.inject.Singleton
 
 @Module
@@ -13,5 +15,9 @@ import javax.inject.Singleton
 object AppModule {
     @Provides
     @Singleton
-    fun provideEventFindApi(): EventFindApi = RetrofitInstance.api
+    fun provideEventFindApi(): EventsFindApi = RetrofitInstance.api
+
+    @Provides
+    @Singleton
+    fun provideEventsRepository(api: EventsFindApi): EventsRepository = EventsRepositoryImpl(api)
 }

@@ -20,12 +20,12 @@ object RetrofitInstance {
         }
         .build()
 
-    val api: EventFindApi by lazy {
+    val api: EventsFindApi by lazy {
         Retrofit.Builder()
             .baseUrl(BASE_URL)
             .addConverterFactory(GsonConverterFactory.create())
             .client(client)
             .build()
-            .create(EventFindApi::class.java)
+            .create(EventsFindApi::class.java)
     }
 }

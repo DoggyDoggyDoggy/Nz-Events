@@ -5,7 +5,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
 import denys.diomaxius.nzevents.data.dto.EventDto
-import denys.diomaxius.nzevents.data.network.EventFindApi
+import denys.diomaxius.nzevents.data.network.EventsFindApi
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
@@ -14,7 +14,7 @@ import javax.inject.Inject
 
 @HiltViewModel
 class HomeScreenViewModel @Inject constructor(
-    private val eventFindApi: EventFindApi
+    private val eventsFindApi: EventsFindApi
 ): ViewModel() {
     private val _events = MutableStateFlow<List<EventDto>>(emptyList())
     val events: StateFlow<List<EventDto>> = _events.asStateFlow()
@@ -26,7 +26,7 @@ class HomeScreenViewModel @Inject constructor(
     fun getEvents() {
         viewModelScope.launch {
             try {
-                _events.value = eventFindApi.getEvents().events
+                _events.value = eventsFindApi.getEvents().events
             } catch (e: Exception) {
                 Log.i("Parse Events", e.message.toString())
             }
