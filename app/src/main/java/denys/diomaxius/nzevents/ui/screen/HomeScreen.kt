@@ -21,7 +21,7 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import coil3.compose.AsyncImage
-import denys.diomaxius.nzevents.data.dto.EventDto
+import denys.diomaxius.nzevents.domain.model.Event
 
 @Composable
 fun HomeScreen(
@@ -53,7 +53,7 @@ fun HomeScreen(
 }
 
 @Composable
-fun EventItemCard(event: EventDto) {
+fun EventItemCard(event: Event) {
     Card(
         modifier = Modifier
             .fillMaxWidth()
