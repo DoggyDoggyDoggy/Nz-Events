@@ -13,7 +13,7 @@ data class EventDto(
     val description: String,
     @SerializedName("datetime_start") val datetimeStart: String,
     @SerializedName("datetime_end") val datetimeEnd: String,
-    val address: String?,
+    val address: String,
     val images: ImageWrapperDto
 )
 
