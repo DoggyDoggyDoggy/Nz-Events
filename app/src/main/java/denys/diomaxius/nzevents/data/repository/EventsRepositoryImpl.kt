@@ -2,6 +2,7 @@ package denys.diomaxius.nzevents.data.repository
 
 import denys.diomaxius.nzevents.data.remote.mapper.toDomain
 import denys.diomaxius.nzevents.data.remote.api.EventsFindApi
+import denys.diomaxius.nzevents.domain.model.Event
 import denys.diomaxius.nzevents.domain.model.Events
 import denys.diomaxius.nzevents.domain.repository.EventsRepository
 import javax.inject.Inject
@@ -11,6 +12,11 @@ class EventsRepositoryImpl @Inject constructor(
 ): EventsRepository {
     override suspend fun getEvents(rows: Int): Events {
         val response = api.getEvents(rows)
+        return response.toDomain()
+    }
+
+    override suspend fun getEvent(id: Long): Event {
+        val response = api.getEvent(id)
         return response.toDomain()
     }
 }
