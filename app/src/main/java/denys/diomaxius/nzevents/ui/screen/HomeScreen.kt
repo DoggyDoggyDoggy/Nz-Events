@@ -83,17 +83,3 @@ fun EventItemCard(event: Event) {
         }
     }
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
