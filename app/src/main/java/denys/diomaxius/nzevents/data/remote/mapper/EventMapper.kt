@@ -10,6 +10,7 @@ fun EventsResponseDto.toDomain(): Events = Events(
 )
 
 fun EventDto.toDomain(): Event = Event(
+    id = this.id,
     url = this.url,
     name = this.name,
     description = this.description,

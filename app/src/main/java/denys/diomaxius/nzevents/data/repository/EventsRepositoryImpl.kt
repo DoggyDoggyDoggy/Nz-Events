@@ -15,8 +15,8 @@ class EventsRepositoryImpl @Inject constructor(
         return response.toDomain()
     }
 
-    override suspend fun getEvent(id: Long): Event {
+    override suspend fun getEvent(id: String): Event {
         val response = api.getEvent(id)
-        return response.toDomain()
+        return response.events.first().toDomain()
     }
 }

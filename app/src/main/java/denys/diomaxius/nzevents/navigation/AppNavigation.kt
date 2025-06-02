@@ -7,6 +7,7 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+import denys.diomaxius.nzevents.ui.screen.event.EventDetailsScreen
 import denys.diomaxius.nzevents.ui.screen.home.HomeScreen
 
 val LocalNavController = compositionLocalOf<NavHostController> {
@@ -24,6 +25,11 @@ fun AppNavigation(
         ) {
             composable(Screen.Home.route) {
                 HomeScreen()
+            }
+
+            composable(Screen.Event.route) {
+                val eventId = it.arguments?.getString("eventId")
+                EventDetailsScreen(eventId = eventId ?: "")
             }
         }
     }

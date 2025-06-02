@@ -1,6 +1,7 @@
 package denys.diomaxius.nzevents.domain.model
 
 data class Event(
+    val id: String,
     val url: String,
     val name: String,
     val description: String,

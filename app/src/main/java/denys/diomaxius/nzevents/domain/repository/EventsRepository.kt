@@ -5,5 +5,5 @@ import denys.diomaxius.nzevents.domain.model.Events
 
 interface EventsRepository {
     suspend fun getEvents(rows: Int = 10): Events
-    suspend fun getEvent(id: Long): Event
+    suspend fun getEvent(id: String): Event
 }

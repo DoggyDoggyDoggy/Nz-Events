@@ -50,7 +50,7 @@ fun HomeScreen(
                 EventItemCard(
                     event = event,
                     onItemClick = {
-                        navHostController.navigate(Screen.Event.route) {
+                        navHostController.navigate(Screen.Event.createRoute(event.id)) {
                             launchSingleTop = true
                         }
                     }
