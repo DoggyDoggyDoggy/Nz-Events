@@ -28,8 +28,7 @@ fun AppNavigation(
             }
 
             composable(Screen.Event.route) {
-                val eventId = it.arguments?.getString("eventId")
-                EventDetailsScreen(eventId = eventId ?: "")
+                EventDetailsScreen()
             }
         }
     }
