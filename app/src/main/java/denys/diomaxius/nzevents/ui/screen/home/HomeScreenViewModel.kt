@@ -1,4 +1,4 @@
-package denys.diomaxius.nzevents.ui.screen
+package denys.diomaxius.nzevents.ui.screen.home
 
 import android.util.Log
 import androidx.lifecycle.ViewModel

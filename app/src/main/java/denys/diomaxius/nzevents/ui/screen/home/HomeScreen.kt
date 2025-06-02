@@ -1,5 +1,6 @@
-package denys.diomaxius.nzevents.ui.screen
+package denys.diomaxius.nzevents.ui.screen.home
 
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -20,17 +21,17 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import androidx.navigation.NavHostController
 import coil3.compose.AsyncImage
 import denys.diomaxius.nzevents.domain.model.Event
+import denys.diomaxius.nzevents.navigation.LocalNavController
+import denys.diomaxius.nzevents.navigation.Screen
 
 @Composable
 fun HomeScreen(
-    viewModel: HomeScreenViewModel = hiltViewModel(),
-    navHostController: NavHostController
+    viewModel: HomeScreenViewModel = hiltViewModel()
 ) {
     val events by viewModel.events.collectAsState()
-
+    val navHostController = LocalNavController.current
     Column(
         modifier = Modifier
             .fillMaxSize()
@@ -47,7 +48,12 @@ fun HomeScreen(
         LazyColumn {
             items(events) { event ->
                 EventItemCard(
-                    event = event
+                    event = event,
+                    onItemClick = {
+                        navHostController.navigate(Screen.Event.route) {
+                            launchSingleTop = true
+                        }
+                    }
                 )
             }
         }
@@ -55,11 +61,17 @@ fun HomeScreen(
 }
 
 @Composable
-fun EventItemCard(event: Event) {
+fun EventItemCard(
+    event: Event,
+    onItemClick: () -> Unit
+) {
     Card(
         modifier = Modifier
             .fillMaxWidth()
-            .padding(bottom = 24.dp),
+            .padding(bottom = 24.dp)
+            .clickable {
+                onItemClick()
+            },
         colors = CardDefaults.cardColors(
             containerColor = Color.White
         ),
