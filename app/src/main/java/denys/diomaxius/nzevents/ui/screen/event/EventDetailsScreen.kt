@@ -69,39 +69,51 @@ fun EventDetailsScreen(
 
         Spacer(modifier = Modifier.height(24.dp))
 
-        Text(
-            text = "Description:",
-            fontSize = 24.sp,
-            fontWeight = FontWeight.SemiBold
-        )
-
-        Spacer(modifier = Modifier.height(8.dp))
-
-        Text(
-            text = event.description,
-            fontSize = 16.sp
-        )
+        EventDescription(event)
 
         Spacer(modifier = Modifier.height(24.dp))
 
-        Row(
-            modifier = Modifier.fillMaxWidth(),
-            verticalAlignment = Alignment.CenterVertically
-        ) {
-            Icon(
-                imageVector = Icons.Default.LocationOn,
-                contentDescription = "Address"
-            )
-
-            Text(
-                text = event.address,
-                fontSize = 16.sp
-            )
-        }
+        EventAddress(event)
 
         EventDates(event)
+    }
+}
 
+@Composable
+fun EventDescription(
+    event: Event
+) {
+    Text(
+        text = "Description:",
+        fontSize = 24.sp,
+        fontWeight = FontWeight.SemiBold
+    )
 
+    Spacer(modifier = Modifier.height(8.dp))
+
+    Text(
+        text = event.description,
+        fontSize = 16.sp
+    )
+}
+
+@Composable
+fun EventAddress(
+    event: Event
+) {
+    Row(
+        modifier = Modifier.fillMaxWidth(),
+        verticalAlignment = Alignment.CenterVertically
+    ) {
+        Icon(
+            imageVector = Icons.Default.LocationOn,
+            contentDescription = "Address"
+        )
+
+        Text(
+            text = event.address,
+            fontSize = 16.sp
+        )
     }
 }
 
