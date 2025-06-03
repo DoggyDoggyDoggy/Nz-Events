@@ -4,8 +4,9 @@ import denys.diomaxius.nzevents.domain.model.Events
 import denys.diomaxius.nzevents.domain.repository.EventsRepository
 import javax.inject.Inject
 
-class GetEventsUseCase @Inject constructor(
+class GetEventsByLocationUseCase @Inject constructor(
     private val repository: EventsRepository
-){
-    suspend operator fun invoke(rows: Int) : Events = repository.getEvents(rows)
+) {
+    suspend operator fun invoke(location: Int): Events =
+        repository.getEventsByLocation(location)
 }

@@ -12,25 +12,32 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 
 @Composable
-fun HomeDrawerContent() {
-    ModalDrawerSheet (
+fun HomeDrawerContent(
+    changeLocation: () -> Unit,
+    resetLocationFilter: () -> Unit
+) {
+    ModalDrawerSheet(
         modifier = Modifier.width(200.dp)
     ) {
         Column {
             Text(
-                "Section 1",
+                text = "Location",
                 modifier = Modifier.padding(16.dp),
                 style = MaterialTheme.typography.titleMedium
             )
             NavigationDrawerItem(
-                label = { Text("Item 1") },
+                label = {
+                    Text("Hamilton")
+                },
                 selected = false,
-                onClick = { /* Handle click */ }
+                onClick = { changeLocation() }
             )
             NavigationDrawerItem(
-                label = { Text("Item 2") },
+                label = {
+                    Text("Reset location filter")
+                },
                 selected = false,
-                onClick = { /* Handle click */ }
+                onClick = { resetLocationFilter() }
             )
         }
     }

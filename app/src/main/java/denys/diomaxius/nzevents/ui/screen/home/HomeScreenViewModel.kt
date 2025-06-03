@@ -5,6 +5,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
 import denys.diomaxius.nzevents.domain.model.Event
+import denys.diomaxius.nzevents.domain.usecase.GetEventsByLocationUseCase
 import denys.diomaxius.nzevents.domain.usecase.GetEventsUseCase
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
@@ -14,8 +15,9 @@ import javax.inject.Inject
 
 @HiltViewModel
 class HomeScreenViewModel @Inject constructor(
-    private val getEventsUseCase: GetEventsUseCase
-): ViewModel() {
+    private val getEventsUseCase: GetEventsUseCase,
+    private val getEventsByLocationUseCase: GetEventsByLocationUseCase
+) : ViewModel() {
     private val _events = MutableStateFlow<List<Event>>(emptyList())
     val events: StateFlow<List<Event>> = _events.asStateFlow()
 
@@ -26,10 +28,25 @@ class HomeScreenViewModel @Inject constructor(
     private fun getEvents() {
         viewModelScope.launch {
             try {
-                _events.value = getEventsUseCase().events
+                _events.value = getEventsUseCase(10).events
             } catch (e: Exception) {
                 Log.i("Parse Events", e.message.toString())
             }
         }
+    }
+
+    fun getEventsByLocation() {
+        viewModelScope.launch {
+            try {
+                _events.value = getEventsByLocationUseCase(42).events
+                Log.i("Change Location", "${_events.value}")
+            } catch (e: Exception) {
+                Log.i("Parse Events", e.message.toString())
+            }
+        }
+    }
+
+    fun resetLocationFilter() {
+        getEvents()
     }
 }
