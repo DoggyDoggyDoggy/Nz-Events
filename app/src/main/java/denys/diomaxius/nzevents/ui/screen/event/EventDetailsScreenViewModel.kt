@@ -8,6 +8,7 @@ import denys.diomaxius.nzevents.domain.model.Event
 import denys.diomaxius.nzevents.domain.model.Image
 import denys.diomaxius.nzevents.domain.model.ImageTransform
 import denys.diomaxius.nzevents.domain.model.ImageWrapper
+import denys.diomaxius.nzevents.domain.model.SessionsWrapper
 import denys.diomaxius.nzevents.domain.model.TransformWrapper
 import denys.diomaxius.nzevents.domain.usecase.GetEventUseCase
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -33,6 +34,9 @@ class EventDetailsScreenViewModel @Inject constructor(
             datetimeStart = "",
             datetimeEnd = "",
             address = "",
+            sessions = SessionsWrapper(
+                sessions = listOf()
+            ),
             images = ImageWrapper(
                 images = listOf(Image(
                     id = 0,

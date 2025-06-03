@@ -1,6 +1,5 @@
 package denys.diomaxius.nzevents.ui.screen.event
 
-import android.util.Log
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
@@ -9,6 +8,7 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.DateRange
 import androidx.compose.material.icons.filled.LocationOn
 import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
@@ -17,16 +17,12 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import coil3.compose.AsyncImage
-import coil3.util.Logger
-import java.nio.file.WatchEvent
 
 @Composable
 fun EventDetailsScreen(
@@ -72,6 +68,23 @@ fun EventDetailsScreen(
         )
 
         Spacer(modifier = Modifier.height(24.dp))
+
+        event.sessions.sessions.forEach {
+            Row (
+                modifier = Modifier.fillMaxWidth(),
+                verticalAlignment = Alignment.CenterVertically
+            ){
+                Icon(
+                    imageVector = Icons.Default.DateRange,
+                    contentDescription = "Date"
+                )
+
+                Text(
+                    text = it.datetimeSummary,
+                    fontSize = 16.sp
+                )
+            }
+        }
 
         Row (
             modifier = Modifier.fillMaxWidth(),

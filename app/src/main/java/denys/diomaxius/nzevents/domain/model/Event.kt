@@ -8,5 +8,6 @@ data class Event(
     val datetimeStart: String,
     val datetimeEnd: String,
     val address: String,
+    val sessions: SessionsWrapper,
     val images: ImageWrapper
 )

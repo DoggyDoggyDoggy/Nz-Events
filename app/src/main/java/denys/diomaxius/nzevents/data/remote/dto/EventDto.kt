@@ -15,7 +15,16 @@ data class EventDto(
     @SerializedName("datetime_start") val datetimeStart: String,
     @SerializedName("datetime_end") val datetimeEnd: String,
     val address: String,
+    val sessions: SessionsWrapperDto,
     val images: ImageWrapperDto
+)
+
+data class SessionsWrapperDto(
+    val sessions: List<SessionDto>
+)
+
+data class SessionDto(
+    @SerializedName("datetime_summary") val datetimeSummary: String
 )
 
 data class ImageWrapperDto(
