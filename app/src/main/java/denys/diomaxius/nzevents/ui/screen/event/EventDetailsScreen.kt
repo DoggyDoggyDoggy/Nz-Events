@@ -1,5 +1,7 @@
 package denys.diomaxius.nzevents.ui.screen.event
 
+import android.content.Context
+import android.content.Intent
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.core.tween
 import androidx.compose.animation.expandVertically
@@ -20,6 +22,7 @@ import androidx.compose.material.icons.filled.DateRange
 import androidx.compose.material.icons.filled.KeyboardArrowDown
 import androidx.compose.material.icons.filled.KeyboardArrowUp
 import androidx.compose.material.icons.filled.LocationOn
+import androidx.compose.material3.Button
 import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -31,18 +34,21 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import coil3.compose.AsyncImage
 import denys.diomaxius.nzevents.domain.model.Event
+import androidx.core.net.toUri
 
 @Composable
 fun EventDetailsScreen(
     viewModel: EventDetailsScreenViewModel = hiltViewModel()
 ) {
     val event by viewModel.event.collectAsState()
+    val context: Context = LocalContext.current
 
     Column(
         modifier = Modifier
@@ -76,6 +82,25 @@ fun EventDetailsScreen(
         EventAddress(event)
 
         EventDates(event)
+
+        Spacer(modifier = Modifier.weight(1f))
+
+        Button(
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(vertical = 32.dp)
+                .height(50.dp),
+            onClick = {
+                context.startActivity(
+                    Intent(Intent.ACTION_VIEW, event.url.toUri())
+                )
+            }
+        ) {
+            Text(
+                text = "Buy Tickets",
+                fontSize = 20.sp
+            )
+        }
     }
 }
 
