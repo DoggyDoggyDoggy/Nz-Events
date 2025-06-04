@@ -26,7 +26,7 @@ fun HomeScreen(
     ModalNavigationDrawer(
         drawerContent = {
             HomeDrawerContent(
-                changeLocation = { viewModel.getEventsByLocation() },
+                changeLocation = { viewModel.getEventsByLocation(it) },
                 resetLocationFilter = { viewModel.resetLocationFilter() }
             )
         },

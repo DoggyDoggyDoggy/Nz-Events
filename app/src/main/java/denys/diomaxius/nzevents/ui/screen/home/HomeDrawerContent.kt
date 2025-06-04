@@ -10,10 +10,11 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
+import denys.diomaxius.nzevents.domain.model.City
 
 @Composable
 fun HomeDrawerContent(
-    changeLocation: () -> Unit,
+    changeLocation: (Int) -> Unit,
     resetLocationFilter: () -> Unit
 ) {
     ModalDrawerSheet(
@@ -27,10 +28,16 @@ fun HomeDrawerContent(
             )
             NavigationDrawerItem(
                 label = {
-                    Text("Hamilton")
+                    Text(
+                        text = City.HAMILTON.cityName
+                    )
                 },
                 selected = false,
-                onClick = { changeLocation() }
+                onClick = {
+                    changeLocation(
+                        City.HAMILTON.id
+                    )
+                }
             )
             NavigationDrawerItem(
                 label = {

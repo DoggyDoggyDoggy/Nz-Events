@@ -35,11 +35,10 @@ class HomeScreenViewModel @Inject constructor(
         }
     }
 
-    fun getEventsByLocation() {
+    fun getEventsByLocation(id: Int) {
         viewModelScope.launch {
             try {
-                _events.value = getEventsByLocationUseCase(42).events
-                Log.i("Change Location", "${_events.value}")
+                _events.value = getEventsByLocationUseCase(id).events
             } catch (e: Exception) {
                 Log.i("Parse Events", e.message.toString())
             }
