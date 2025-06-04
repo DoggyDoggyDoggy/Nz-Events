@@ -7,16 +7,19 @@ import retrofit2.http.Query
 interface EventsFindApi  {
     @GET("events.json")
     suspend fun getEvents(
-        @Query("rows") rows: Int
+        @Query("rows") rows: Int = 10,
+        @Query("offset") offset: Int = 0
+    ): EventsResponseDto
+
+    @GET("events.json")
+    suspend fun getEventsByLocation(
+        @Query("location") location: Int,
+        @Query("rows") rows: Int = 10,
+        @Query("offset") offset: Int = 0
     ): EventsResponseDto
 
     @GET("events.json")
     suspend fun getEvent(
         @Query("id") id: String
-    ): EventsResponseDto
-
-    @GET("events.json")
-    suspend fun getEventsByLocation(
-        @Query("location") location: Int
     ): EventsResponseDto
 }

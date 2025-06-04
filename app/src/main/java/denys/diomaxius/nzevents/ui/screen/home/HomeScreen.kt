@@ -6,18 +6,17 @@ import androidx.compose.material3.ModalNavigationDrawer
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.rememberDrawerState
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Modifier
 import androidx.hilt.navigation.compose.hiltViewModel
-import androidx.compose.runtime.getValue
 import androidx.compose.runtime.rememberCoroutineScope
+import androidx.paging.compose.collectAsLazyPagingItems
 import denys.diomaxius.nzevents.navigation.LocalNavController
 
 @Composable
 fun HomeScreen(
     viewModel: HomeScreenViewModel = hiltViewModel()
 ) {
-    val events by viewModel.events.collectAsState()
+    val lazyPagingItems = viewModel.eventsPager.collectAsLazyPagingItems()
     val navHostController = LocalNavController.current
 
     val drawerState = rememberDrawerState(initialValue = DrawerValue.Closed)
@@ -26,7 +25,7 @@ fun HomeScreen(
     ModalNavigationDrawer(
         drawerContent = {
             HomeDrawerContent(
-                changeLocation = { viewModel.getEventsByLocation(it) },
+                changeLocation = { viewModel.setLocationFilter(it) },
                 resetLocationFilter = { viewModel.resetLocationFilter() }
             )
         },
@@ -42,8 +41,8 @@ fun HomeScreen(
         ) { innerPadding ->
             Content(
                 modifier = Modifier.padding(innerPadding),
-                events = events,
-                navHostController = navHostController
+                navHostController = navHostController,
+                pagingItems = lazyPagingItems
             )
         }
     }
