@@ -4,7 +4,14 @@ import com.google.gson.annotations.SerializedName
 
 
 data class EventsResponseDto(
+    @SerializedName("@attributes")
+    val attributes: AttributesDto,
     val events: List<EventDto>
+)
+
+data class AttributesDto(
+    @SerializedName("count")
+    val count: Int
 )
 
 data class EventDto(

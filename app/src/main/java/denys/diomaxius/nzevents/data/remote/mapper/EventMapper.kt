@@ -10,6 +10,7 @@ import denys.diomaxius.nzevents.domain.model.Session
 import denys.diomaxius.nzevents.domain.model.SessionsWrapper
 
 fun EventsResponseDto.toDomain(): Events = Events(
+    count = this.attributes.count,
     events = this.events.map { it.toDomain() }
 )
 
