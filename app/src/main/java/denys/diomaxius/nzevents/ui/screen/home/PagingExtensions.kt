@@ -17,18 +17,6 @@ fun LazyListScope.pagingExtensions(
     pagingItems: LazyPagingItems<Event>
 ) {
     when {
-        pagingItems.loadState.refresh is LoadState.Loading -> {
-            item {
-                Box(
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .padding(vertical = 16.dp),
-                    contentAlignment = Alignment.Center
-                ) {
-                    Text("Loading...", modifier = Modifier.align(Alignment.Center))
-                }
-            }
-        }
         pagingItems.loadState.append is LoadState.Loading -> {
             item {
                 Box(
@@ -41,18 +29,7 @@ fun LazyListScope.pagingExtensions(
                 }
             }
         }
-        pagingItems.loadState.refresh is LoadState.Error -> {
-            val e = pagingItems.loadState.refresh as LoadState.Error
-            item {
-                Text(
-                    "Error Loading: ${e.error.localizedMessage}",
-                    color = androidx.compose.ui.graphics.Color.Red,
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .padding(16.dp)
-                )
-            }
-        }
+
         pagingItems.loadState.append is LoadState.Error -> {
             val e = pagingItems.loadState.append as LoadState.Error
             item {

@@ -23,7 +23,9 @@ fun Content(
             .fillMaxSize()
             .padding(horizontal = 16.dp)
     ) {
-        LazyColumn {
+        LazyColumn (
+            modifier = Modifier.fillMaxSize()
+        ) {
             items(count = pagingItems.itemCount) { index ->
                 val event = pagingItems[index]
                 event?.let {

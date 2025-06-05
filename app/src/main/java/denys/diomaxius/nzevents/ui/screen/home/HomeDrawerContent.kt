@@ -17,7 +17,7 @@ import denys.diomaxius.nzevents.domain.model.City
 fun HomeDrawerContent(
     changeLocation: (Int) -> Unit,
     resetLocationFilter: () -> Unit,
-    closeDrawer: () -> Unit
+    toggleDrawer: () -> Unit
 ) {
     ModalDrawerSheet(
         modifier = Modifier.width(200.dp)
@@ -32,7 +32,7 @@ fun HomeDrawerContent(
 
             CityNavDrawItem(
                 changeLocation = changeLocation,
-                closeDrawer = closeDrawer
+                closeDrawer = toggleDrawer
             )
 
             NavigationDrawerItem(
@@ -45,7 +45,7 @@ fun HomeDrawerContent(
                 selected = false,
                 onClick = {
                     resetLocationFilter()
-                    closeDrawer()
+                    toggleDrawer()
                 }
             )
         }

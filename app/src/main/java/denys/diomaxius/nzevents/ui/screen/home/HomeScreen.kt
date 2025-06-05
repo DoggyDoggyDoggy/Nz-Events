@@ -10,8 +10,14 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.compose.runtime.rememberCoroutineScope
+import androidx.navigation.NavHostController
+import androidx.paging.LoadState
+import androidx.paging.compose.LazyPagingItems
 import androidx.paging.compose.collectAsLazyPagingItems
+import denys.diomaxius.nzevents.domain.model.Event
 import denys.diomaxius.nzevents.navigation.LocalNavController
+import denys.diomaxius.nzevents.ui.screen.components.LoadingScreen
+import denys.diomaxius.nzevents.ui.screen.components.LoadingScreenError
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
 
@@ -25,12 +31,43 @@ fun HomeScreen(
     val drawerState = rememberDrawerState(initialValue = DrawerValue.Closed)
     val scope = rememberCoroutineScope()
 
+    when (lazyPagingItems.loadState.refresh) {
+        is LoadState.Loading -> {
+            LoadingScreen()
+        }
+        is LoadState.Error -> {
+            LoadingScreenError(
+                pagingItems = lazyPagingItems
+            )
+        }
+        else -> {
+            MainContent(
+                changeLocation = { viewModel.setLocationFilter(it) },
+                resetLocationFilter = { viewModel.resetLocationFilter() },
+                toggleDrawer = { toggleDrawer(scope, drawerState) },
+                drawerState = drawerState,
+                navHostController = navHostController,
+                lazyPagingItems = lazyPagingItems
+            )
+        }
+    }
+}
+
+@Composable
+fun MainContent(
+    changeLocation: (Int) -> Unit,
+    resetLocationFilter: () -> Unit,
+    toggleDrawer: () -> Unit,
+    drawerState: DrawerState,
+    navHostController: NavHostController,
+    lazyPagingItems: LazyPagingItems<Event>
+) {
     ModalNavigationDrawer(
         drawerContent = {
             HomeDrawerContent(
-                changeLocation = { viewModel.setLocationFilter(it) },
-                resetLocationFilter = { viewModel.resetLocationFilter() },
-                closeDrawer = { toggleDrawer(scope, drawerState) }
+                changeLocation = changeLocation,
+                resetLocationFilter = resetLocationFilter,
+                toggleDrawer = toggleDrawer
             )
         },
         drawerState = drawerState
@@ -38,7 +75,7 @@ fun HomeScreen(
         Scaffold(
             topBar = {
                 TopBar(
-                    onMenuClick = { toggleDrawer(scope, drawerState) }
+                    toggleDrawer = toggleDrawer
                 )
             }
         ) { innerPadding ->
@@ -50,6 +87,7 @@ fun HomeScreen(
         }
     }
 }
+
 
 fun toggleDrawer(
     scope: CoroutineScope,

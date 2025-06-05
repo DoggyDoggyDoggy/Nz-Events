@@ -16,7 +16,7 @@ import androidx.compose.ui.unit.sp
 @Composable
 fun TopBar(
     modifier: Modifier = Modifier,
-    onMenuClick: () -> Unit
+    toggleDrawer: () -> Unit
 ) {
     CenterAlignedTopAppBar(
         modifier = modifier,
@@ -29,7 +29,7 @@ fun TopBar(
         },
         navigationIcon = {
             IconButton(
-                onClick = onMenuClick
+                onClick = toggleDrawer
 
             ) {
                 Icon(
