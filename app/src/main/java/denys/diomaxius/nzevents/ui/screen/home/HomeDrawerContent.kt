@@ -38,7 +38,7 @@ fun HomeDrawerContent(
                     Text(
                         text = "Reset location filter",
                         fontSize = 18.sp
-                        )
+                    )
                 },
                 selected = false,
                 onClick = { resetLocationFilter() }
