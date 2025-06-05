@@ -7,27 +7,17 @@ import denys.diomaxius.nzevents.data.remote.mapper.toDomain
 import denys.diomaxius.nzevents.data.remote.api.EventsFindApi
 import denys.diomaxius.nzevents.data.remote.paging.EventsPagingSource
 import denys.diomaxius.nzevents.domain.model.Event
-import denys.diomaxius.nzevents.domain.model.Events
 import denys.diomaxius.nzevents.domain.repository.EventsRepository
 import kotlinx.coroutines.flow.Flow
 import javax.inject.Inject
 
 class EventsRepositoryImpl @Inject constructor(
     private val api: EventsFindApi
-): EventsRepository {
-    override suspend fun getEvents(rows: Int): Events {
-        val response = api.getEvents(rows)
-        return response.toDomain()
-    }
+) : EventsRepository {
 
     override suspend fun getEvent(id: String): Event {
         val response = api.getEvent(id)
         return response.events.first().toDomain()
-    }
-
-    override suspend fun getEventsByLocation(location: Int): Events {
-        val response = api.getEventsByLocation(location)
-        return response.toDomain()
     }
 
     override fun getEventsPager(pageSize: Int): Flow<PagingData<Event>> {
