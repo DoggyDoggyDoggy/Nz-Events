@@ -11,7 +11,6 @@ class EventsPagingSource(
     private val locationId: Int? = null,
     private val pageSize: Int = 100
 ) : PagingSource<Int, Event>() {
-
     override suspend fun load(params: LoadParams<Int>): LoadResult<Int, Event> {
         return try {
             val offset = params.key ?: 0

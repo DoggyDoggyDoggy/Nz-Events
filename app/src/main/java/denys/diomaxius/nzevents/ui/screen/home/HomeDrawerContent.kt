@@ -16,7 +16,8 @@ import denys.diomaxius.nzevents.domain.model.City
 @Composable
 fun HomeDrawerContent(
     changeLocation: (Int) -> Unit,
-    resetLocationFilter: () -> Unit
+    resetLocationFilter: () -> Unit,
+    toggleDrawer: () -> Unit
 ) {
     ModalDrawerSheet(
         modifier = Modifier.width(200.dp)
@@ -30,7 +31,8 @@ fun HomeDrawerContent(
             )
 
             CityNavDrawItem(
-                changeLocation = changeLocation
+                changeLocation = changeLocation,
+                closeDrawer = toggleDrawer
             )
 
             NavigationDrawerItem(
@@ -38,10 +40,13 @@ fun HomeDrawerContent(
                     Text(
                         text = "Reset location filter",
                         fontSize = 18.sp
-                        )
+                    )
                 },
                 selected = false,
-                onClick = { resetLocationFilter() }
+                onClick = {
+                    resetLocationFilter()
+                    toggleDrawer()
+                }
             )
         }
     }
@@ -49,7 +54,8 @@ fun HomeDrawerContent(
 
 @Composable
 fun CityNavDrawItem(
-    changeLocation: (Int) -> Unit
+    changeLocation: (Int) -> Unit,
+    closeDrawer: () -> Unit
 ) {
     for (city in City.entries) {
         NavigationDrawerItem(
@@ -61,9 +67,8 @@ fun CityNavDrawItem(
             },
             selected = false,
             onClick = {
-                changeLocation(
-                    city.id
-                )
+                changeLocation(city.id)
+                closeDrawer()
             }
         )
     }
