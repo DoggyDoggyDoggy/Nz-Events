@@ -1,5 +1,6 @@
 package denys.diomaxius.nzevents.data.repository
 
+import android.util.Log
 import androidx.paging.Pager
 import androidx.paging.PagingConfig
 import androidx.paging.PagingData
@@ -17,10 +18,15 @@ class EventsRepositoryImpl @Inject constructor(
 
     override suspend fun getEvent(id: String): Event {
         val response = api.getEvent(id)
+        Log.i("Empty List", "${response.events}")
         return response.events.first().toDomain()
     }
 
-    override fun getEventsPager(pageSize: Int): Flow<PagingData<Event>> {
+    override fun getEventsPager(
+        pageSize: Int,
+        startDate: String?,
+        endDate: String?
+    ): Flow<PagingData<Event>> {
         return Pager(
             config = PagingConfig(
                 pageSize = pageSize,
@@ -30,13 +36,20 @@ class EventsRepositoryImpl @Inject constructor(
                 EventsPagingSource(
                     api = api,
                     locationId = null,
-                    pageSize = pageSize
+                    pageSize = pageSize,
+                    startDate = startDate,
+                    endDate = endDate
                 )
             }
         ).flow
     }
 
-    override fun getEventsByLocationPager(location: Int, pageSize: Int): Flow<PagingData<Event>> {
+    override fun getEventsByLocationPager(
+        location: Int,
+        pageSize: Int,
+        startDate: String?,
+        endDate: String?
+    ): Flow<PagingData<Event>> {
         return Pager(
             config = PagingConfig(
                 pageSize = pageSize,
@@ -46,7 +59,9 @@ class EventsRepositoryImpl @Inject constructor(
                 EventsPagingSource(
                     api = api,
                     locationId = location,
-                    pageSize = pageSize
+                    pageSize = pageSize,
+                    startDate = startDate,
+                    endDate = endDate
                 )
             }
         ).flow

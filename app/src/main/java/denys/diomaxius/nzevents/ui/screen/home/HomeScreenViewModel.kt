@@ -11,7 +11,9 @@ import denys.diomaxius.nzevents.domain.usecase.GetEventsPagerUseCase
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.flatMapLatest
+import java.time.LocalDate
 import javax.inject.Inject
 
 @HiltViewModel
@@ -20,17 +22,32 @@ class HomeScreenViewModel @Inject constructor(
     private val getEventsByLocationPagerUseCase: GetEventsByLocationPagerUseCase
 ) : ViewModel() {
     private val locationFlow = MutableStateFlow<Int?>(null)
+    private val startDateFlow = MutableStateFlow<String?>(null)
+    private val endDateFlow = MutableStateFlow<String?>(null)
 
     @OptIn(ExperimentalCoroutinesApi::class)
-    private val _eventsPager: Flow<PagingData<Event>> = locationFlow
-        .flatMapLatest { locationId ->
-            if (locationId == null) {
-                getEventsPagerUseCase.invoke(pageSize = 100)
-            } else {
-                getEventsByLocationPagerUseCase.invoke(locationId, pageSize = 100)
-            }
+    private val _eventsPager: Flow<PagingData<Event>> = combine(
+        locationFlow,
+        startDateFlow,
+        endDateFlow
+    ) { locationId, startDate, endDate ->
+        Triple(locationId, startDate, endDate)
+    }.flatMapLatest { (locationId, startDate, endDate) ->
+        if (locationId == null) {
+            getEventsPagerUseCase(
+                pageSize = 100,
+                startDate = startDateFlow.value,
+                endDate = endDateFlow.value
+            )
+        } else {
+            getEventsByLocationPagerUseCase(
+                location = locationId,
+                pageSize = 100,
+                startDate = startDateFlow.value,
+                endDate = endDateFlow.value
+            )
         }
-        .cachedIn(viewModelScope)
+    }.cachedIn(viewModelScope)
 
     val eventsPager: Flow<PagingData<Event>> = _eventsPager
 
@@ -40,5 +57,15 @@ class HomeScreenViewModel @Inject constructor(
 
     fun resetLocationFilter() {
         locationFlow.value = null
+    }
+
+    fun setTodayDate() {
+        startDateFlow.value = LocalDate.now().toString()
+        endDateFlow.value = LocalDate.now().plusDays(1).toString()
+    }
+
+    fun resetDate() {
+        startDateFlow.value = null
+        endDateFlow.value = null
     }
 }

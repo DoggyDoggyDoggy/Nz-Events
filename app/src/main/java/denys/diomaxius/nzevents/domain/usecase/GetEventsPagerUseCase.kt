@@ -9,7 +9,14 @@ import javax.inject.Inject
 class GetEventsPagerUseCase @Inject constructor(
     private val repository: EventsRepository
 ) {
-    operator fun invoke(pageSize: Int = 100): Flow<PagingData<Event>> {
-        return repository.getEventsPager(pageSize)
-    }
+    operator fun invoke(
+        pageSize: Int = 100,
+        startDate: String?,
+        endDate: String?
+    ): Flow<PagingData<Event>> =
+        repository.getEventsPager(
+            pageSize = pageSize,
+            startDate = startDate,
+            endDate = endDate
+        )
 }

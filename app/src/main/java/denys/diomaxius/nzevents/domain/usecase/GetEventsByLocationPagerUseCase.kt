@@ -9,7 +9,16 @@ import javax.inject.Inject
 class GetEventsByLocationPagerUseCase @Inject constructor(
     private val repository: EventsRepository
 ) {
-    operator fun invoke(location: Int, pageSize: Int = 100): Flow<PagingData<Event>> {
-        return repository.getEventsByLocationPager(location, pageSize)
-    }
+    operator fun invoke(
+        location: Int,
+        pageSize: Int = 100,
+        startDate: String?,
+        endDate: String?
+    ): Flow<PagingData<Event>> =
+        repository.getEventsByLocationPager(
+        location = location,
+        pageSize = pageSize,
+        startDate = startDate,
+        endDate = endDate
+    )
 }
