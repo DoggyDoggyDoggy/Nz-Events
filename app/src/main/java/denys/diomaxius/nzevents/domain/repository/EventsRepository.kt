@@ -9,12 +9,12 @@ interface EventsRepository {
     suspend fun getEvent(id: String): Event
 
     fun getEventsPager(
-        pageSize: Int = 100, startDate: String?,
+        pageSize: Int = 10, startDate: String?,
         endDate: String?
     ): Flow<PagingData<Event>>
 
     fun getEventsByLocationPager(
-        location: Int, pageSize: Int = 100, startDate: String?,
+        location: Int, pageSize: Int = 10, startDate: String?,
         endDate: String?
     ): Flow<PagingData<Event>>
 }

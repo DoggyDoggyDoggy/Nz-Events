@@ -7,6 +7,7 @@ import androidx.compose.material3.ModalNavigationDrawer
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.rememberDrawerState
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Modifier
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.compose.runtime.rememberCoroutineScope
@@ -20,6 +21,7 @@ import denys.diomaxius.nzevents.ui.screen.components.LoadingScreen
 import denys.diomaxius.nzevents.ui.screen.components.LoadingScreenError
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
+import androidx.compose.runtime.getValue
 
 @Composable
 fun HomeScreen(
@@ -28,6 +30,8 @@ fun HomeScreen(
     val lazyPagingItems = viewModel.eventsPager.collectAsLazyPagingItems()
     val navHostController = LocalNavController.current
 
+    val dateSet by viewModel.dateSet.collectAsState("all")
+
     val drawerState = rememberDrawerState(initialValue = DrawerValue.Closed)
     val scope = rememberCoroutineScope()
 
@@ -35,11 +39,13 @@ fun HomeScreen(
         is LoadState.Loading -> {
             LoadingScreen()
         }
+
         is LoadState.Error -> {
             LoadingScreenError(
                 pagingItems = lazyPagingItems
             )
         }
+
         else -> {
             MainContent(
                 changeLocation = { viewModel.setLocationFilter(it) },
@@ -47,7 +53,10 @@ fun HomeScreen(
                 toggleDrawer = { toggleDrawer(scope, drawerState) },
                 drawerState = drawerState,
                 navHostController = navHostController,
-                lazyPagingItems = lazyPagingItems
+                lazyPagingItems = lazyPagingItems,
+                setTodayDate = { viewModel.setTodayDate() },
+                resetDate = { viewModel.resetDate() },
+                dateSet = dateSet
             )
         }
     }
@@ -60,7 +69,10 @@ fun MainContent(
     toggleDrawer: () -> Unit,
     drawerState: DrawerState,
     navHostController: NavHostController,
-    lazyPagingItems: LazyPagingItems<Event>
+    lazyPagingItems: LazyPagingItems<Event>,
+    resetDate: () -> Unit,
+    setTodayDate: () -> Unit,
+    dateSet: String
 ) {
     ModalNavigationDrawer(
         drawerContent = {
@@ -75,7 +87,10 @@ fun MainContent(
         Scaffold(
             topBar = {
                 TopBar(
-                    toggleDrawer = toggleDrawer
+                    toggleDrawer = toggleDrawer,
+                    setTodayDate = setTodayDate,
+                    resetDate = resetDate,
+                    dateSet = dateSet
                 )
             }
         ) { innerPadding ->

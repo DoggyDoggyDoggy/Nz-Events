@@ -11,6 +11,7 @@ import denys.diomaxius.nzevents.domain.usecase.GetEventsPagerUseCase
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.flatMapLatest
 import java.time.LocalDate
@@ -24,6 +25,9 @@ class HomeScreenViewModel @Inject constructor(
     private val locationFlow = MutableStateFlow<Int?>(null)
     private val startDateFlow = MutableStateFlow<String?>(null)
     private val endDateFlow = MutableStateFlow<String?>(null)
+
+    private val _dateSet = MutableStateFlow("all")
+    val dateSet: Flow<String> = _dateSet.asStateFlow()
 
     @OptIn(ExperimentalCoroutinesApi::class)
     private val _eventsPager: Flow<PagingData<Event>> = combine(
@@ -62,10 +66,12 @@ class HomeScreenViewModel @Inject constructor(
     fun setTodayDate() {
         startDateFlow.value = LocalDate.now().toString()
         endDateFlow.value = LocalDate.now().plusDays(1).toString()
+        _dateSet.value = "today"
     }
 
     fun resetDate() {
         startDateFlow.value = null
         endDateFlow.value = null
+        _dateSet.value = "all"
     }
 }
