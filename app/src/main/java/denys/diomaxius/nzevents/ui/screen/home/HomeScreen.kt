@@ -56,6 +56,7 @@ fun HomeScreen(
                 lazyPagingItems = lazyPagingItems,
                 setTodayDate = { viewModel.setTodayDate() },
                 resetDate = { viewModel.resetDate() },
+                setWeekDate = { viewModel.setWeekDate() },
                 dateSet = dateSet
             )
         }
@@ -72,7 +73,8 @@ fun MainContent(
     lazyPagingItems: LazyPagingItems<Event>,
     resetDate: () -> Unit,
     setTodayDate: () -> Unit,
-    dateSet: String
+    dateSet: String,
+    setWeekDate: () -> Unit
 ) {
     ModalNavigationDrawer(
         drawerContent = {
@@ -90,7 +92,8 @@ fun MainContent(
                     toggleDrawer = toggleDrawer,
                     setTodayDate = setTodayDate,
                     resetDate = resetDate,
-                    dateSet = dateSet
+                    dateSet = dateSet,
+                    setWeekDate = setWeekDate
                 )
             }
         ) { innerPadding ->

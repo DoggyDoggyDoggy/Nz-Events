@@ -32,7 +32,8 @@ fun TopBar(
     toggleDrawer: () -> Unit,
     setTodayDate: () -> Unit,
     resetDate: () -> Unit,
-    dateSet: String
+    dateSet: String,
+    setWeekDate: () -> Unit
 ) {
     Column {
         CenterAlignedTopAppBar(
@@ -59,7 +60,8 @@ fun TopBar(
         DatesButtons(
             setTodayDate = setTodayDate,
             resetDate = resetDate,
-            dateSet = dateSet
+            dateSet = dateSet,
+            setWeekDate = setWeekDate
         )
     }
 }
@@ -68,7 +70,8 @@ fun TopBar(
 fun DatesButtons(
     setTodayDate: () -> Unit,
     resetDate: () -> Unit,
-    dateSet: String
+    dateSet: String,
+    setWeekDate: () -> Unit
 ) {
     Row(
         modifier = Modifier
@@ -88,6 +91,24 @@ fun DatesButtons(
             Text(
                 modifier = Modifier.padding(5.dp),
                 text = "Today",
+                fontSize = 22.sp,
+                textAlign = TextAlign.Center
+            )
+        }
+
+        Card(
+            modifier = Modifier
+                .width(72.dp)
+                .clickable { setWeekDate() },
+            colors = if (dateSet == "week") CardDefaults.cardColors(
+                containerColor = Color(0xFF9679C7)
+            ) else CardDefaults.cardColors()
+        ) {
+            Text(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(5.dp),
+                text = "Week",
                 fontSize = 22.sp,
                 textAlign = TextAlign.Center
             )

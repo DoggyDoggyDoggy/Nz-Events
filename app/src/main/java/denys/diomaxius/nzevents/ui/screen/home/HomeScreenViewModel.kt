@@ -69,6 +69,12 @@ class HomeScreenViewModel @Inject constructor(
         _dateSet.value = "today"
     }
 
+    fun setWeekDate() {
+        startDateFlow.value = LocalDate.now().toString()
+        endDateFlow.value = LocalDate.now().plusDays(8).toString()
+        _dateSet.value = "week"
+    }
+
     fun resetDate() {
         startDateFlow.value = null
         endDateFlow.value = null
