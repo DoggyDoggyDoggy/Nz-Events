@@ -3,6 +3,8 @@ package denys.diomaxius.nzevents.ui.screen.home
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.ModalDrawerSheet
 import androidx.compose.material3.NavigationDrawerItem
 import androidx.compose.material3.Text
@@ -22,7 +24,10 @@ fun HomeDrawerContent(
     ModalDrawerSheet(
         modifier = Modifier.width(200.dp)
     ) {
-        Column {
+        Column(
+            modifier = Modifier
+                .verticalScroll(rememberScrollState())
+        ) {
             Text(
                 text = "Location",
                 modifier = Modifier.padding(16.dp),
