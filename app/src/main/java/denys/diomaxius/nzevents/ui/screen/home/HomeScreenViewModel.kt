@@ -23,6 +23,8 @@ class HomeScreenViewModel @Inject constructor(
     private val getEventsByLocationPagerUseCase: GetEventsByLocationPagerUseCase
 ) : ViewModel() {
     private val locationFlow = MutableStateFlow<Int?>(null)
+    val location: Flow<Int?> = locationFlow.asStateFlow()
+
     private val startDateFlow = MutableStateFlow<String?>(null)
     private val endDateFlow = MutableStateFlow<String?>(null)
 

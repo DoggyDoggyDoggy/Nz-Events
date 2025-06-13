@@ -35,6 +35,8 @@ fun HomeScreen(
     val drawerState = rememberDrawerState(initialValue = DrawerValue.Closed)
     val scope = rememberCoroutineScope()
 
+    val location by viewModel.location.collectAsState(null)
+
     when (lazyPagingItems.loadState.refresh) {
         is LoadState.Loading -> {
             LoadingScreen()
@@ -57,7 +59,8 @@ fun HomeScreen(
                 setTodayDate = { viewModel.setTodayDate() },
                 resetDate = { viewModel.resetDate() },
                 setWeekDate = { viewModel.setWeekDate() },
-                dateSet = dateSet
+                dateSet = dateSet,
+                location = location
             )
         }
     }
@@ -74,7 +77,8 @@ fun MainContent(
     resetDate: () -> Unit,
     setTodayDate: () -> Unit,
     dateSet: String,
-    setWeekDate: () -> Unit
+    setWeekDate: () -> Unit,
+    location: Int?
 ) {
     ModalNavigationDrawer(
         drawerContent = {
@@ -93,7 +97,8 @@ fun MainContent(
                     setTodayDate = setTodayDate,
                     resetDate = resetDate,
                     dateSet = dateSet,
-                    setWeekDate = setWeekDate
+                    setWeekDate = setWeekDate,
+                    location = location
                 )
             }
         ) { innerPadding ->

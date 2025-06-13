@@ -24,6 +24,20 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import denys.diomaxius.nzevents.domain.model.City
+
+fun cityName(cityId: Int?): String {
+    if (cityId == null) {
+        return "NZ"
+    } else {
+        for (city in City.entries) {
+            if (cityId == city.id) {
+                return city.cityName
+            }
+        }
+    }
+    return ""
+}
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -33,14 +47,15 @@ fun TopBar(
     setTodayDate: () -> Unit,
     resetDate: () -> Unit,
     dateSet: String,
-    setWeekDate: () -> Unit
+    setWeekDate: () -> Unit,
+    location: Int?
 ) {
     Column {
         CenterAlignedTopAppBar(
             modifier = modifier,
             title = {
                 Text(
-                    text = "NZ Events",
+                    text = cityName(location) + " Events",
                     fontSize = 24.sp,
                     fontWeight = FontWeight.Bold
                 )
