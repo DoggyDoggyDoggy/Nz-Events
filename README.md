@@ -4,6 +4,9 @@ A modern Android application built with **Jetpack Compose** that displays upcomi
 
 Designed using **Clean Architecture** principles and powered by **Paging**, **Retrofit**, and **Hilt** for a modular and scalable codebase.
 
+<img src="https://github.com/user-attachments/assets/bc20bbed-ab68-4ada-a78e-10e927d5c94d" width="32%"  height = 625px />
+<img src="https://github.com/user-attachments/assets/08bfc737-d73f-4866-85fa-25604df8f4cc" width="32%"  height = 625px />
+
 ## ✨ Features
 
 - 📅 Filter events by **Today**, **This Week**, or **All**.
